@@ -6,6 +6,8 @@ public class Main {
         System.out.println("dasd");
         for (int i = 0; i < 5; i++) System.out.println("pasha cool");
         printMem();
+        int num = 2;
+        System.out.println("num = " + num);
 
 
     }
