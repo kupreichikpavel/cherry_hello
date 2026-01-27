@@ -1,15 +1,15 @@
 public class Main {
-    public static void printMem(){
+    public static void printMem() {
         System.out.println("meme");
     }
+
     public static void main(String[] args) {
         System.out.println("dasd");
         for (int i = 0; i < 5; i++) System.out.println("pasha cool");
         printMem();
         int num = 2;
         System.out.println("num = " + num);
-
-
+        String name = "pablo228";
+        System.out.println("name = " + name);
     }
-
 }
