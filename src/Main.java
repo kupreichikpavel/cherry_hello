@@ -6,6 +6,7 @@ public class Main {
         System.out.println("dasd");
         for (int i = 0; i < 5; i++) System.out.println("pasha cool");
         printMem();
+        System.out.println("some code");
     }
 
 }
