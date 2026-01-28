@@ -2,7 +2,9 @@ import Service.CryptionService;
 import Service.FileService;
 import Service.FileValidateService;
 import Service.InputService;
+
 import java.util.Scanner;
+
 import static Consts.Consts.*;
 
 public class Main {
@@ -15,14 +17,14 @@ public class Main {
 Если пользователь выбирает brute force (брутфорс, поиск грубой силой), программа должна самостоятельно, путем перебора, подобрать ключ и расшифровать текст.
 Подумай, какой критерий программа должна воспринимать как сигнал успешного подбора ключа.
 Возможно, нужно обратить внимание на пробелы между словами или правильность использования знаков пунктуации.*/
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         FileValidateService fileValidateService = new FileValidateService();
         InputService inputService = new InputService(scanner);
         FileService fileService = new FileService(fileValidateService);
         CryptionService cryptionService = new CryptionService(fileService);
 
-        int num = 2;
+        int num = 1;
         switch (num) {
             case 1:
                 cryptionService.crypt(inputService.createCryproModel(ENTER_SOURSE_CRYPT_FILE));
