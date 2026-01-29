@@ -13,10 +13,12 @@ public class CryptionService {
 
     public void crypt(CryptoModel cryptoModel){
        try {
-           List<String> dataFormatFile = fileService.readFromFile(Path.of(cryptoModel.getPathFrom()),false);
+           List<String> dataFormatFile = fileService.readFromFile(Path.of(cryptoModel.getPathFrom()),true);
        }  catch (Exception e ){
            System.out.println("не прочитал");
        }
+
+
 
     }
 

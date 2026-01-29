@@ -3,6 +3,7 @@ import Service.FileService;
 import Service.FileValidateService;
 import Service.InputService;
 
+import java.util.List;
 import java.util.Scanner;
 
 import static Consts.Consts.*;
@@ -24,24 +25,27 @@ public class Main {
         FileService fileService = new FileService(fileValidateService);
         CryptionService cryptionService = new CryptionService(fileService);
 
-        int num = 1;
-        switch (num) {
-            case 1:
-                cryptionService.crypt(inputService.createCryproModel(ENTER_SOURSE_CRYPT_FILE));
-                break;
-            case 2:
-                cryptionService.decrypt(inputService.createCryproModel(ENTER_SOURCE_DECRYPTO_FILE));
-                break;
-            case 3:
-                cryptionService.bruteForce(inputService.createCryptoPath());
-                break;
-            case 4:
-                cryptionService.staticAnalyz(inputService.createCryptoPath());
-                break;
-            default: {
-                System.out.println("meow");
-            }
-        }
+
+         final List<String> UNAVALIBLE_PATHS = List.of();
+        System.out.println(UNAVALIBLE_PATHS);
+//        int num = 1;
+//        switch (num) {
+//            case 1:
+//                cryptionService.crypt(inputService.createCryproModel(ENTER_SOURSE_CRYPT_FILE));
+//                break;
+//            case 2:
+//                cryptionService.decrypt(inputService.createCryproModel(ENTER_SOURCE_DECRYPTO_FILE));
+//                break;
+//            case 3:
+//                cryptionService.bruteForce(inputService.createCryptoPath());
+//                break;
+//            case 4:
+//                cryptionService.staticAnalyz(inputService.createCryptoPath());
+//                break;
+//            default: {
+//                System.out.println("meow");
+//            }
+//        }
     }
 }
 
