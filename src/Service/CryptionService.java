@@ -43,7 +43,7 @@ public class CryptionService {
     public void decrypt(CryptoModel cryptoModel) {
         List<String> resultlines = new ArrayList<>();
         try {
-            List<String> dataFormatFile = fileService.readFromFile(Path.of(cryptoModel.getPathTo()));
+            List<String> dataFormatFile = fileService.readFromFile(Path.of(cryptoModel.getPathFrom()));
             for (String line : dataFormatFile) {
                 StringBuilder stringBuilder = new StringBuilder();
                 for (char c : line.toCharArray()) {
@@ -52,7 +52,7 @@ public class CryptionService {
                         continue;
                     }
                     if (signsSercice.isAlphabetSymbol(c)) {
-                        stringBuilder.append(signsSercice.encryptCaesar(c, cryptoModel.getKey()));
+                        stringBuilder.append(signsSercice.decryptCaesar(c, cryptoModel.getKey()));
                     }
                 }
                 resultlines.add(stringBuilder.toString());
