@@ -1,12 +1,11 @@
-import Service.CryptionService;
-import Service.FileService;
-import Service.FileValidateService;
-import Service.InputService;
+import Models.CryptoModel;
+import Service.*;
 
-import java.util.List;
+
 import java.util.Scanner;
 
-import static Consts.Consts.*;
+import static Consts.Consts.ENTER_SOURCE_DECRYPTO_FILE;
+import static Consts.Consts.ENTER_SOURSE_CRYPT_FILE;
 
 public class Main {
     /*1)Шифрование / расшифровка. Программа должна зашифровывать и расшифровывать текст, используя заданный криптографический ключ.
@@ -21,13 +20,14 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         FileValidateService fileValidateService = new FileValidateService();
+        SignsService signsService = new SignsService();
         InputService inputService = new InputService(scanner);
         FileService fileService = new FileService(fileValidateService);
-        CryptionService cryptionService = new CryptionService(fileService);
+        CryptionService cryptionService = new CryptionService(fileService,signsService);
+
+        cryptionService.decrypt(inputService.createCryproModel(ENTER_SOURCE_DECRYPTO_FILE));
 
 
-         final List<String> UNAVALIBLE_PATHS = List.of();
-        System.out.println(UNAVALIBLE_PATHS);
 //        int num = 1;
 //        switch (num) {
 //            case 1:

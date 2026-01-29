@@ -1,10 +1,10 @@
 package Service;
+import exeption.DuplicateFileException;
 
 import java.nio.file.Path;
-import java.util.List;
+import static Consts.Consts.UNAVALIBLE_PATHS;
 
 public class FileValidateService {
-    private final List<String> UNAVALIBLE_PATHS = List.of();
     public boolean isAvaliblePath(Path path){
         for (String paths : UNAVALIBLE_PATHS) {
            if(paths.equals(path)){
@@ -12,5 +12,11 @@ public class FileValidateService {
            }
         }
         return true;
+    }
+    public boolean CheckingDuplicateFiles(Path pathTo,Path pathFrom) {
+       if(pathTo.equals(pathFrom)){
+          return true;
+       }
+        return false;
     }
 }
