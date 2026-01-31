@@ -5,9 +5,9 @@ import Service.CryptionService;
 import java.util.Scanner;
 
 public class CryptoPaths {
- private String pathFrom;
- private String pathTo;
- private String result;
+    private String pathFrom;
+    private String pathTo;
+    private String result;
 
     public CryptoPaths() {
     }

@@ -1,4 +1,4 @@
-import Models.CryptoModel;
+
 import Service.*;
 
 
@@ -21,31 +21,33 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         FileValidateService fileValidateService = new FileValidateService();
         SignsService signsService = new SignsService();
+        TextAnalysisService textAnalysisService = new TextAnalysisService();
         InputService inputService = new InputService(scanner);
         FileService fileService = new FileService(fileValidateService);
-        CryptionService cryptionService = new CryptionService(fileService,signsService);
+        CryptionService cryptionService = new CryptionService(fileService, signsService, textAnalysisService);
 
-        cryptionService.decrypt(inputService.createCryproModel(ENTER_SOURCE_DECRYPTO_FILE));
+        cryptionService.bruteForce(inputService.createCryptoPath());
+/*
+        int num = scanner.nextInt();
+        switch (num) {
+            case 1:
+                cryptionService.crypt(inputService.createCryproModel(ENTER_SOURSE_CRYPT_FILE));
+                break;
+            case 2:
+                cryptionService.decrypt(inputService.createCryproModel(ENTER_SOURCE_DECRYPTO_FILE));
+                break;
+            case 3:
+                cryptionService.bruteForce(inputService.createCryptoPath());
+                break;
+            case 4:
+                cryptionService.staticAnalyz(inputService.createCryptoPath());
+                break;
+            default: {
+                System.out.println("meow");
+            }
+        }
 
-
-//        int num = 1;
-//        switch (num) {
-//            case 1:
-//                cryptionService.crypt(inputService.createCryproModel(ENTER_SOURSE_CRYPT_FILE));
-//                break;
-//            case 2:
-//                cryptionService.decrypt(inputService.createCryproModel(ENTER_SOURCE_DECRYPTO_FILE));
-//                break;
-//            case 3:
-//                cryptionService.bruteForce(inputService.createCryptoPath());
-//                break;
-//            case 4:
-//                cryptionService.staticAnalyz(inputService.createCryptoPath());
-//                break;
-//            default: {
-//                System.out.println("meow");
-//            }
-//        }
+ */
     }
 }
 

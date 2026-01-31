@@ -6,7 +6,6 @@ import exeption.UnsupportedFileException;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class FileService {
             throw new FileExeption("Выходного файла не существует");
         }
         if (fileValidateService.CheckingDuplicateFiles(pathTo, pathFrom)) {
-            throw new DuplicateFileException("DuplicateFiles");
+            throw new DuplicateFileException("DuplicateFiles ");
         }
         try (BufferedWriter writer = Files.newBufferedWriter(pathFrom)) {
             for (String line : data) {
@@ -55,8 +54,31 @@ public class FileService {
                 writer.newLine();
             }
         }
-        System.out.println("program 1 done");
+        System.out.println("program done");
+    }
 
+    public void writeFromFileResult(List<String> data, Path pathFrom, Path pathTo, Path pathResult) throws DuplicateFileException, FileExeption, IOException, UnsupportedFileException {
 
+        if (!Files.exists(pathFrom)) {
+            throw new FileExeption("Выходного файла не существует");
+        }
+        if (!Files.exists(pathResult)) {
+            throw new FileExeption("Выходного файла не существует");
+        }
+        if (!fileValidateService.isAvaliblePath(pathFrom, pathTo, pathResult)) {
+            throw new UnsupportedFileException("нельзя модифицировать этот файл");
+        }
+        if (fileValidateService.CheckingDuplicateFiles(pathTo, pathFrom, pathResult)) {
+            throw new DuplicateFileException("DuplicateFiles ");
+        }
+        try (BufferedWriter writer = Files.newBufferedWriter(pathResult)) {
+
+            for (String line : data) {
+                writer.write(line);
+                writer.flush();
+                writer.newLine();
+            }
+        }
+        System.out.println("program 3 done");
     }
 }

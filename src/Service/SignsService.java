@@ -6,19 +6,22 @@ import static Consts.Consts.ALPHABET_RUSSIAN;
 public class SignsService {
 
     public boolean isSpecialSymbol(char c) {
-        for (int i = 0; i < SIGNS.length; i++) {
-            if (c == SIGNS[i] || (c >= '1' && c < '9')) {
+        for (char sign : SIGNS) {
+            if (sign == c) {
+                return true;
+            }
+            if (Character.isDigit(c)) {
                 return true;
             }
         }
         return false;
     }
+
     public boolean isAlphabetSymbol(char c) {
-        for (int i = 0; i < ALPHABET_RUSSIAN.length; i++) {
-            if (c == ALPHABET_RUSSIAN[i]) {
+        for (char letter : ALPHABET_RUSSIAN)
+            if (c == letter) {
                 return true;
             }
-        }
         return false;
     }
 
@@ -31,6 +34,7 @@ public class SignsService {
         }
         return c;
     }
+
     public char decryptCaesar(char c, int key) {
         if (c >= 'а' && c <= 'я') {
             int shift = ((c - 'а' - key) % 32);
