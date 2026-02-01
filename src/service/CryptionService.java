@@ -1,12 +1,16 @@
-package Service;
+package service;
 
-import Models.CryptoModel;
-import Models.CryptoPaths;
+import models.InputData;
+import consts.Consts;
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class CryptionService {
+    public static final char SPACE = ' ';
     public final FileService fileService;
     public final SignsService signsSercice;
     public final TextAnalysisService textAnalysisService;
@@ -43,13 +47,13 @@ public class CryptionService {
     }
 
     public void decrypt(CryptoModel cryptoModel) {
-        List<String> resultlines = new ArrayList<>();
+        List<String> resultLines = new ArrayList<>();
         try {
             List<String> dataFormatFile = fileService.readFromFile(Path.of(cryptoModel.getPathFrom()));
             for (String line : dataFormatFile) {
                 StringBuilder stringBuilder = new StringBuilder();
                 for (char c : line.toCharArray()) {
-                    if (signsSercice.isSpecialSymbol(c) || c == ' ') {
+                    if (signsSercice.isSpecialSymbol(c) || c == SPACE) {
                         stringBuilder.append(c);
                         continue;
                     }
@@ -57,9 +61,9 @@ public class CryptionService {
                         stringBuilder.append(signsSercice.decryptCaesar(c, cryptoModel.getKey()));
                     }
                 }
-                resultlines.add(stringBuilder.toString());
+                resultLines.add(stringBuilder.toString());
             }
-            fileService.writeFromFile(resultlines, Path.of(cryptoModel.getPathTo()), Path.of(cryptoModel.getPathFrom()));
+            fileService.writeFromFile(resultLines, Path.of(cryptoModel.getPathTo()), Path.of(cryptoModel.getPathFrom()));
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -85,17 +89,17 @@ public class CryptionService {
     }
 
 
-    public void bruteForce(CryptoPaths paths) {
+    public void bruteForce(InputData paths) {
         try {
             List<String> cryptText = fileService.readFromFile(Path.of(paths.getPathFrom()));
             List<String> exampleText = fileService.readFromFile(Path.of(paths.getPathTo()));
             int bestKey = -1;
             int bestMathes = 0;
-            List<String> bestCandidate = null;
+            List<String> bestCandidate = Collections.emptyList();
             Map<String, Integer> exampleWords;
             exampleWords = textAnalysisService.getMostPopularWords(exampleText);
 
-            for (int key = 0; key < 32; key++) {
+            for (int key = 0; key < Consts.ALPHABET_RUSSIAN.size(); key++) {
                 List<String> candidate = decryptForLine(cryptText, key);
                 Map<String, Integer> cryptPopularWords = textAnalysisService.getMostPopularWords(candidate);
                 int mathes = textAnalysisService.compareMaps(cryptPopularWords, exampleWords);
@@ -117,6 +121,6 @@ public class CryptionService {
         }
     }
 
-    public void staticAnalyz(CryptoPaths paths) {
+    public void staticAnalyz(InputData paths) {
     }
 }

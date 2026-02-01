@@ -1,7 +1,9 @@
-package Service;
+package service;
 
-import static Consts.Consts.SIGNS;
-import static Consts.Consts.ALPHABET_RUSSIAN;
+import consts.Consts;
+
+import static consts.Consts.SIGNS;
+import static consts.Consts.ALPHABET_RUSSIAN;
 
 public class SignsService {
 
@@ -26,11 +28,12 @@ public class SignsService {
     }
 
 
+    //todo объединить в один метод
     public char encryptCaesar(char c, int key) {
-        if (c >= 'а' && c <= 'я') {
-            int shift = ((c - 'а' + key) % 32);
-            if (shift < 0) shift += 32;
-            return (char) ('а' + shift);
+        if (c >= ALPHABET_RUSSIAN.getFirst() && c <= ALPHABET_RUSSIAN.getLast()) {
+            int shift = ((c - ALPHABET_RUSSIAN.getFirst() + key) % ALPHABET_RUSSIAN.size());
+            if (shift < 0) shift += ALPHABET_RUSSIAN.size();
+            return (char) (ALPHABET_RUSSIAN.getFirst() + shift);
         }
         return c;
     }

@@ -1,18 +1,25 @@
-package Models;
+package models;
 
-import Service.CryptionService;
+import service.CryptionService;
 
 import java.util.Scanner;
 
-public class CryptoPaths {
+public class InputData {
     private String pathFrom;
     private String pathTo;
     private String result;
+    private Integer key;
 
-    public CryptoPaths() {
+    private InputData() {
     }
 
-    public CryptoPaths(String pathFrom, String pathTo, String result) {
+    public InputData(String pathFrom, String pathTo, Integer key) {
+        this.pathFrom = pathFrom;
+        this.pathTo = pathTo;
+        this.key = key;
+    }
+
+    public InputData(String pathFrom, String pathTo, String result) {
         this.pathFrom = pathFrom;
         this.pathTo = pathTo;
         this.result = result;
@@ -43,13 +50,13 @@ public class CryptoPaths {
     }
 
     public static void extracted(Scanner scanner, CryptionService cryptionService) {
-        CryptoPaths cryptoPaths = new CryptoPaths();
+        InputData inputData = new InputData();
         System.out.println("Адрес зашифрованного файла");
-        cryptoPaths.setPathFrom(scanner.nextLine());
+        inputData.setPathFrom(scanner.nextLine());
         System.out.println("Адрес файла с примером");
-        cryptoPaths.setPathTo(scanner.nextLine());
+        inputData.setPathTo(scanner.nextLine());
         System.out.println("Aдрес файла с результатом");
-        cryptoPaths.setResult(scanner.nextLine());
+        inputData.setResult(scanner.nextLine());
     }
 }
 

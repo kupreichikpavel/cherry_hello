@@ -1,11 +1,8 @@
 
-import Service.*;
+import service.*;
 
 
 import java.util.Scanner;
-
-import static Consts.Consts.ENTER_SOURCE_DECRYPTO_FILE;
-import static Consts.Consts.ENTER_SOURSE_CRYPT_FILE;
 
 public class Main {
     /*1)Шифрование / расшифровка. Программа должна зашифровывать и расшифровывать текст, используя заданный криптографический ключ.
@@ -18,6 +15,8 @@ public class Main {
 Подумай, какой критерий программа должна воспринимать как сигнал успешного подбора ключа.
 Возможно, нужно обратить внимание на пробелы между словами или правильность использования знаков пунктуации.*/
     public static void main(String[] args) {
+
+        //todo добавить выбор языка
         Scanner scanner = new Scanner(System.in);
         FileValidateService fileValidateService = new FileValidateService();
         SignsService signsService = new SignsService();
@@ -26,7 +25,7 @@ public class Main {
         FileService fileService = new FileService(fileValidateService);
         CryptionService cryptionService = new CryptionService(fileService, signsService, textAnalysisService);
 
-        cryptionService.bruteForce(inputService.createCryptoPath());
+        cryptionService.bruteForce(inputService.insertPath());
 /*
         int num = scanner.nextInt();
         switch (num) {

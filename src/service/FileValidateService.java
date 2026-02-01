@@ -1,21 +1,19 @@
-package Service;
+package service;
 
 
 import java.nio.file.Path;
 
-import static Consts.Consts.UNAVALIBLE_PATHS;
+import static consts.Consts.UNAVALIBLE_PATHS;
 
 public class FileValidateService {
     public boolean isAvaliblePath(Path path) {
-        for (String paths : UNAVALIBLE_PATHS) {
-            if (paths.equals(path.toString())) {
-                return false;
-            }
-        }
-        return true;
+        return UNAVALIBLE_PATHS
+                .stream()
+                .noneMatch(paths -> paths.equals(path.toString()));
     }
 
     public boolean isAvaliblePath(Path pathTo, Path pathFrom, Path pathResult) {
+        //todo: ADJFLKJASLSDK
         for (String paths : UNAVALIBLE_PATHS) {
             if (paths.equals(pathFrom.toString())) {
                 return false;
@@ -29,22 +27,24 @@ public class FileValidateService {
         }
         return true;
     }
-    private Path canonical(Path p) {
-        return p.normalize().toAbsolutePath();
-    }
-    public boolean CheckingDuplicateFiles(Path pathTo, Path pathFrom) {
+
+    public boolean checkingDuplicateFiles(Path pathTo, Path pathFrom) {
         Path a = canonical(pathTo);
         Path b = canonical(pathFrom);
         return a.equals(b);
     }
 
-
-
-    public boolean CheckingDuplicateFiles(Path pathTo, Path pathFrom, Path pathResult) {
+    public boolean checkingDuplicateFiles(Path pathTo, Path pathFrom, Path pathResult) {
         Path a = canonical(pathTo);
         Path b = canonical(pathFrom);
         Path c = canonical(pathResult);
 
-        return a.equals(b) || a.equals(c) || b.equals(c);
+        return a.equals(b)
+                || a.equals(c)
+                || b.equals(c);
+    }
+
+    private Path canonical(Path p) {
+        return p.normalize().toAbsolutePath();
     }
 }

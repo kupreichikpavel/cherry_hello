@@ -1,4 +1,4 @@
-package Service;
+package service;
 
 import exeption.DuplicateFileException;
 import exeption.FileExeption;
@@ -10,9 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
-
-import static java.nio.file.Files.readAllLines;
 
 public class FileService {
     private final FileValidateService fileValidateService;
@@ -44,7 +41,7 @@ public class FileService {
         if (!Files.exists(pathFrom)) {
             throw new FileExeption("Выходного файла не существует");
         }
-        if (fileValidateService.CheckingDuplicateFiles(pathTo, pathFrom)) {
+        if (fileValidateService.checkingDuplicateFiles(pathTo, pathFrom)) {
             throw new DuplicateFileException("DuplicateFiles ");
         }
         try (BufferedWriter writer = Files.newBufferedWriter(pathFrom)) {
@@ -63,12 +60,12 @@ public class FileService {
             throw new FileExeption("Выходного файла не существует");
         }
         if (!Files.exists(pathResult)) {
-            throw new FileExeption("Выходного файла не существует");
+            throw new FileExeption("Входного файла не существует");
         }
         if (!fileValidateService.isAvaliblePath(pathFrom, pathTo, pathResult)) {
             throw new UnsupportedFileException("нельзя модифицировать этот файл");
         }
-        if (fileValidateService.CheckingDuplicateFiles(pathTo, pathFrom, pathResult)) {
+        if (fileValidateService.checkingDuplicateFiles(pathTo, pathFrom, pathResult)) {
             throw new DuplicateFileException("DuplicateFiles ");
         }
         try (BufferedWriter writer = Files.newBufferedWriter(pathResult)) {

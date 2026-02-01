@@ -1,4 +1,4 @@
-package Service;
+package service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,14 +18,14 @@ public class TextAnalysisService {
                 if (signsService.isAlphabetSymbol(c)) {
                     stringBuilder.append(Character.toLowerCase(c));
                 } else {
-                    if (stringBuilder.length() > 0) {
+                    if (!stringBuilder.isEmpty()) {
                         String cur = stringBuilder.toString();
                         result.put(cur, result.getOrDefault(cur, 0) + 1);
                         stringBuilder.setLength(0);
                     }
                 }
             }
-            if (stringBuilder.length() > 0) {
+            if (!stringBuilder.isEmpty()) {
                 String cur = stringBuilder.toString();
                 result.put(cur, result.getOrDefault(cur, 0) + 1);
             }
