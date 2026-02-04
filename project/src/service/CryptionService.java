@@ -1,7 +1,7 @@
 package service;
 
-import models.InputData;
 import consts.Consts;
+import models.InputData;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -9,23 +9,26 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static consts.Consts.SPACE;
+
 public class CryptionService {
-    public static final char SPACE = ' ';
     public final FileService fileService;
     public final SignsService signsSercice;
     public final TextAnalysisService textAnalysisService;
+    public final LanguageService languageService;
 
 
-    public CryptionService(FileService fileService, SignsService signsService, TextAnalysisService textAnalysisService) {
+    public CryptionService(FileService fileService, SignsService signsService, TextAnalysisService textAnalysisService, LanguageService languageService) {
         this.fileService = fileService;
         this.signsSercice = signsService;
         this.textAnalysisService = textAnalysisService;
+        this.languageService = languageService;
     }
 
-    public void crypt(CryptoModel cryptoModel) {
+    public void crypt(InputData inputData) {
         List<String> resultlines = new ArrayList<>();
         try {
-            List<String> dataFormatFile = fileService.readFromFile(Path.of(cryptoModel.getPathFrom()));
+            List<String> dataFormatFile = fileService.readFromFile(Path.of(inputData.getPathFrom()));
             for (String line : dataFormatFile) {
                 StringBuilder stringBuilder = new StringBuilder();
                 for (char c : line.toCharArray()) {
@@ -34,22 +37,22 @@ public class CryptionService {
                         continue;
                     }
                     if (signsSercice.isAlphabetSymbol(c)) {
-                        stringBuilder.append(signsSercice.encryptCaesar(c, cryptoModel.getKey()));
+                        stringBuilder.append(signsSercice.toCrypt(c, inputData.getKey(), languageService.getLanguage()));
                     }
                 }
                 resultlines.add(stringBuilder.toString());
             }
-            fileService.writeFromFile(resultlines, Path.of(cryptoModel.getPathTo()), Path.of(cryptoModel.getPathFrom()));
+            fileService.writeFromFile(resultlines, Path.of(inputData.getPathTo()), Path.of(inputData.getPathFrom()));
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void decrypt(CryptoModel cryptoModel) {
+    public void decrypt(InputData inputData) {
         List<String> resultLines = new ArrayList<>();
         try {
-            List<String> dataFormatFile = fileService.readFromFile(Path.of(cryptoModel.getPathFrom()));
+            List<String> dataFormatFile = fileService.readFromFile(Path.of(inputData.getPathFrom()));
             for (String line : dataFormatFile) {
                 StringBuilder stringBuilder = new StringBuilder();
                 for (char c : line.toCharArray()) {
@@ -58,12 +61,12 @@ public class CryptionService {
                         continue;
                     }
                     if (signsSercice.isAlphabetSymbol(c)) {
-                        stringBuilder.append(signsSercice.decryptCaesar(c, cryptoModel.getKey()));
+                        stringBuilder.append(signsSercice.toCrypt(c, -inputData.getKey(), languageService.getLanguage()));
                     }
                 }
                 resultLines.add(stringBuilder.toString());
             }
-            fileService.writeFromFile(resultLines, Path.of(cryptoModel.getPathTo()), Path.of(cryptoModel.getPathFrom()));
+            fileService.writeFromFile(resultLines, Path.of(inputData.getPathTo()), Path.of(inputData.getPathFrom()));
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -78,7 +81,7 @@ public class CryptionService {
                 if (signsSercice.isSpecialSymbol(c) || c == ' ') {
                     sb.append(c);
                 } else if (signsSercice.isAlphabetSymbol(c)) {
-                    sb.append(signsSercice.decryptCaesar(c, key));
+                    sb.append(signsSercice.toCrypt(c, -key, languageService.getLanguage()));
                 } else {
                     sb.append(c);
                 }
@@ -93,7 +96,6 @@ public class CryptionService {
         try {
             List<String> cryptText = fileService.readFromFile(Path.of(paths.getPathFrom()));
             List<String> exampleText = fileService.readFromFile(Path.of(paths.getPathTo()));
-            int bestKey = -1;
             int bestMathes = 0;
             List<String> bestCandidate = Collections.emptyList();
             Map<String, Integer> exampleWords;
@@ -105,16 +107,13 @@ public class CryptionService {
                 int mathes = textAnalysisService.compareMaps(cryptPopularWords, exampleWords);
                 if (mathes > bestMathes) {
                     bestMathes = mathes;
-                    bestKey = key;
                     bestCandidate = candidate;
                 }
             }
             if (bestMathes == 0) {
-                System.out.println("Не могу расшифровать текст");
-                return;
+                System.out.println("Error text example");
             }
             fileService.writeFromFileResult(bestCandidate, Path.of(paths.getPathFrom()), Path.of(paths.getPathTo()), Path.of(paths.getResult()));
-            System.out.println("DONE key = " + bestKey);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

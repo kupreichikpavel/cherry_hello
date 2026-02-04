@@ -1,8 +1,6 @@
 package service;
 
-import exeption.DuplicateFileException;
-import exeption.FileExeption;
-import exeption.UnsupportedFileException;
+import exception.*;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -14,17 +12,18 @@ import java.util.List;
 public class FileService {
     private final FileValidateService fileValidateService;
 
+
     public FileService(FileValidateService fileValidateService) {
         this.fileValidateService = fileValidateService;
     }
 
-    public List<String> readFromFile(Path path) throws UnsupportedFileException, IOException, FileExeption {
+    public List<String> readFromFile(Path path) throws UnsupportedFileException, IOException, FileInputExeception, TextException {
         if (!Files.exists(path)) {
-            throw new FileExeption("Исходного файла не существует");
+            throw new FileInputExeception();
         }
         List<String> data = new ArrayList<>();
         if (!fileValidateService.isAvaliblePath(path)) {
-            throw new UnsupportedFileException("нельзя модифицировать этот файл");
+            throw new UnsupportedFileException();
         }
         long size = 0;
         for (String lines : Files.readAllLines(path)) {
@@ -32,17 +31,17 @@ public class FileService {
             data.add(lines.toLowerCase());
         }
         if (size < 100) {
-            throw new UnsupportedFileException("мало текста в переданном файле");
+            throw new TextException();
         }
         return data;
     }
 
-    public void writeFromFile(List<String> data, Path pathFrom, Path pathTo) throws DuplicateFileException, FileExeption, IOException {
+    public void writeFromFile(List<String> data, Path pathFrom, Path pathTo) throws DuplicateFileTextException, FileInputExeception, IOException {
         if (!Files.exists(pathFrom)) {
-            throw new FileExeption("Выходного файла не существует");
+            throw new FileInputExeception();
         }
         if (fileValidateService.checkingDuplicateFiles(pathTo, pathFrom)) {
-            throw new DuplicateFileException("DuplicateFiles ");
+            throw new DuplicateFileTextException();
         }
         try (BufferedWriter writer = Files.newBufferedWriter(pathFrom)) {
             for (String line : data) {
@@ -54,19 +53,19 @@ public class FileService {
         System.out.println("program done");
     }
 
-    public void writeFromFileResult(List<String> data, Path pathFrom, Path pathTo, Path pathResult) throws DuplicateFileException, FileExeption, IOException, UnsupportedFileException {
+    public void writeFromFileResult(List<String> data, Path pathFrom, Path pathTo, Path pathResult) throws DuplicateFileTextException, IOException, UnsupportedFileException, FileOutputException, FileResultException {
 
         if (!Files.exists(pathFrom)) {
-            throw new FileExeption("Выходного файла не существует");
+            throw new FileOutputException();
         }
         if (!Files.exists(pathResult)) {
-            throw new FileExeption("Входного файла не существует");
+            throw new FileResultException();
         }
         if (!fileValidateService.isAvaliblePath(pathFrom, pathTo, pathResult)) {
-            throw new UnsupportedFileException("нельзя модифицировать этот файл");
+            throw new UnsupportedFileException();
         }
         if (fileValidateService.checkingDuplicateFiles(pathTo, pathFrom, pathResult)) {
-            throw new DuplicateFileException("DuplicateFiles ");
+            throw new DuplicateFileTextException();
         }
         try (BufferedWriter writer = Files.newBufferedWriter(pathResult)) {
 

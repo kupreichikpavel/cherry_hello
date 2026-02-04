@@ -1,17 +1,11 @@
 package models;
 
-import service.CryptionService;
-
-import java.util.Scanner;
 
 public class InputData {
     private String pathFrom;
     private String pathTo;
     private String result;
     private Integer key;
-
-    private InputData() {
-    }
 
     public InputData(String pathFrom, String pathTo, Integer key) {
         this.pathFrom = pathFrom;
@@ -23,6 +17,14 @@ public class InputData {
         this.pathFrom = pathFrom;
         this.pathTo = pathTo;
         this.result = result;
+    }
+
+    public Integer getKey() {
+        return key;
+    }
+
+    public void setKey(Integer key) {
+        this.key = key;
     }
 
     public String getPathFrom() {
@@ -49,14 +51,6 @@ public class InputData {
         this.result = result;
     }
 
-    public static void extracted(Scanner scanner, CryptionService cryptionService) {
-        InputData inputData = new InputData();
-        System.out.println("Адрес зашифрованного файла");
-        inputData.setPathFrom(scanner.nextLine());
-        System.out.println("Адрес файла с примером");
-        inputData.setPathTo(scanner.nextLine());
-        System.out.println("Aдрес файла с результатом");
-        inputData.setResult(scanner.nextLine());
-    }
+
 }
 

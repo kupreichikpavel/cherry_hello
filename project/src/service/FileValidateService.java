@@ -13,15 +13,8 @@ public class FileValidateService {
     }
 
     public boolean isAvaliblePath(Path pathTo, Path pathFrom, Path pathResult) {
-        //todo: ADJFLKJASLSDK
         for (String paths : UNAVALIBLE_PATHS) {
-            if (paths.equals(pathFrom.toString())) {
-                return false;
-            }
-            if (paths.equals(pathTo.toString())) {
-                return false;
-            }
-            if (paths.equals(pathResult.toString())) {
+            if (paths.equals(pathFrom.toString()) || paths.equals(pathTo.toString()) || paths.equals(pathResult.toString())) {
                 return false;
             }
         }
