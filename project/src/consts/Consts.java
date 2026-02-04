@@ -4,7 +4,8 @@ import java.util.List;
 
 public class Consts {
     public static final char SPACE = ' ';
-
+    public static final int COUNT_OF_TOP_MATCH = 5;
+    public static final String PROGRAM_DONE = "program done";
     public static final List<Character> ALPHABET_RUSSIAN = List.of(
             'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и',
             'й', 'к', 'л', 'м', 'н', 'о', 'п',
@@ -21,7 +22,7 @@ public class Consts {
             'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и',
             'й', 'к', 'л', 'м', 'н', 'о', 'п',
             'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч',
-            'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
             'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
             'u', 'v', 'w', 'x', 'y', 'z'
     );

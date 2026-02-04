@@ -6,13 +6,13 @@ import java.nio.file.Path;
 import static consts.Consts.UNAVALIBLE_PATHS;
 
 public class FileValidateService {
-    public boolean isAvaliblePath(Path path) {
+    public boolean isAvailablePath(Path path) {
         return UNAVALIBLE_PATHS
                 .stream()
                 .noneMatch(paths -> paths.equals(path.toString()));
     }
 
-    public boolean isAvaliblePath(Path pathTo, Path pathFrom, Path pathResult) {
+    public boolean isAvailablePath(Path pathTo, Path pathFrom, Path pathResult) {
         for (String paths : UNAVALIBLE_PATHS) {
             if (paths.equals(pathFrom.toString()) || paths.equals(pathTo.toString()) || paths.equals(pathResult.toString())) {
                 return false;

@@ -1,6 +1,7 @@
 package service;
 
 import consts.Consts;
+import exception.TextException;
 import models.InputData;
 
 import java.nio.file.Path;
@@ -111,7 +112,7 @@ public class CryptionService {
                 }
             }
             if (bestMathes == 0) {
-                System.out.println("Error text example");
+                throw new TextException();
             }
             fileService.writeFromFileResult(bestCandidate, Path.of(paths.getPathFrom()), Path.of(paths.getPathTo()), Path.of(paths.getResult()));
 
@@ -121,5 +122,30 @@ public class CryptionService {
     }
 
     public void staticAnalyz(InputData paths) {
+        try {
+            List<String> cryptText = fileService.readFromFile(Path.of(paths.getPathFrom()));
+            List<String> exampleText = fileService.readFromFile(Path.of(paths.getPathTo()));
+            Map<Character, Integer> exampleStats = textAnalysisService.getStatsAfterDotSpace(exampleText);
+            int bestMatches = 0;
+            List<String> bestCandidate = Collections.emptyList();
+
+            for (int key = 0; key < Consts.ALPHABET_RUSSIAN.size(); key++) {
+                List<String> candidate = decryptForLine(cryptText, key);
+                Map<Character, Integer> candidateStats =
+                        textAnalysisService.getStatsAfterDotSpace(candidate);
+                int matches = textAnalysisService.topMatch(exampleStats, candidateStats);
+                if (matches > bestMatches) {
+                    bestMatches = matches;
+                    bestCandidate = candidate;
+                }
+            }
+            if (bestCandidate.isEmpty()) {
+                throw new TextException();
+            }
+            fileService.writeFromFileResult(bestCandidate, Path.of(paths.getPathFrom()), Path.of(paths.getPathTo()), Path.of(paths.getResult()));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
+
 }
