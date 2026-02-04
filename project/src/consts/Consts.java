@@ -1,0 +1,56 @@
+package consts;
+
+import java.util.List;
+
+public class Consts {
+    public static final char SPACE = ' ';
+    public static final int COUNT_OF_TOP_MATCH = 5;
+    public static final String PROGRAM_DONE = "program done";
+    public static final List<Character> ALPHABET_RUSSIAN = List.of(
+            'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и',
+            'й', 'к', 'л', 'м', 'н', 'о', 'п',
+            'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч',
+            'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'
+    );
+
+    public static final List<Character> ALPHABET_ENGLISH = List.of(
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+            'u', 'v', 'w', 'x', 'y', 'z'
+    );
+    public static final List<Character> ALPHABET = List.of(
+            'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и',
+            'й', 'к', 'л', 'м', 'н', 'о', 'п',
+            'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч',
+            'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+            'u', 'v', 'w', 'x', 'y', 'z'
+    );
+
+
+    public static final List<Character> SIGNS = List.of(
+            ',', '.', '/', '*', '?', '-', ')', '('
+    );
+    public static final List<String> UNAVALIBLE_PATHS = List.of(
+            "bootmgr",
+            "Boot\\BCD",
+            "winload.exe",
+            "C:\\Windows\\System32\\ntoskrnl.exe",
+            "C:\\Windows\\System32\\hal.dll",
+            "C:\\Windows\\System32\\win32k.sys",
+            "C:\\Windows\\System32\\kernel32.dll",
+            "C:\\Windows\\System32\\user32.dll",
+            "C:\\Windows\\System32\\gdi32.dll",
+            "C:\\Windows\\System32\\services.exe",
+            "C:\\Windows\\System32\\lsass.exe",
+            "C:\\Windows\\System32\\csrss.exe",
+            "C:\\Windows\\System32\\smss.exe",
+            "C:\\Windows\\explorer.exe",
+            "C:\\Windows\\System32\\dwm.exe",
+            "C:\\Windows\\System32\\config\\SYSTEM",
+            "C:\\Windows\\System32\\config\\SOFTWARE",
+            "C:\\Windows\\System32\\config\\SAM",
+            "C:\\Windows\\System32\\config\\SECURITY"
+    );
+}
+
